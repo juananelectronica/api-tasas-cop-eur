@@ -1,21 +1,15 @@
 {
   "name": "api-tasas-cop-eur",
   "version": "1.0.0",
-  "description": "API para tasas de cambio COP-EUR",
+  "description": "API oficial de tasas COP-EUR desde BCE",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
-    "dev": "nodemon index.js"
+    "start": "node index.js"
   },
-  "keywords": ["api", "tasas", "cambio", "cop", "eur"],
-  "author": "",
-  "license": "ISC",
   "dependencies": {
     "express": "^4.18.2",
-    "cors": "^2.8.5",
-    "dotenv": "^16.0.3"
-  },
-  "devDependencies": {
-    "nodemon": "^2.0.20"
+    "axios": "^1.6.0",
+    "xml2js": "^0.6.2",
+    "cors": "^2.8.5"
   }
 }
