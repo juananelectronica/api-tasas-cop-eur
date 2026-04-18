@@ -13,13 +13,13 @@ let cache = {
   ultimaActualizacion: null
 };
 
-async function obtenerTasaExchangeRate() {
+async function obtenerTasaCurrencyAPI() {
   try {
-    const response = await axios.get("https://api.exchangerate-api.com/v4/latest/EUR");
+    const response = await axios.get("https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/eur.json");
     
-    if (response.data && response.data.rates && response.data.rates.COP) {
+    if (response.data && response.data.eur && response.data.eur.cop) {
       return {
-        tasaEURtoCOP: response.data.rates.COP,
+        tasaEURtoCOP: response.data.eur.cop,
         fechaOficial: response.data.date,
         timestamp: new Date().toISOString()
       };
@@ -36,7 +36,7 @@ app.get("/api/tasa", async (req, res) => {
   if (cache.tasaEURtoCOP && cache.ultimaActualizacion && (ahora - cache.ultimaActualizacion) < 21600000) {
     return res.json({
       success: true,
-      source: "ExchangeRate-API (cache)",
+      source: "Currency-API (cache)",
       base: "EUR",
       target: "COP",
       rate: cache.tasaEURtoCOP,
@@ -45,7 +45,7 @@ app.get("/api/tasa", async (req, res) => {
     });
   }
   
-  const data = await obtenerTasaExchangeRate();
+  const data = await obtenerTasaCurrencyAPI();
   if (data) {
     cache = {
       tasaEURtoCOP: data.tasaEURtoCOP,
@@ -54,7 +54,7 @@ app.get("/api/tasa", async (req, res) => {
     };
     return res.json({
       success: true,
-      source: "ExchangeRate-API (actualizado)",
+      source: "Currency-API (actualizado)",
       base: "EUR",
       target: "COP",
       rate: data.tasaEURtoCOP,
@@ -73,7 +73,7 @@ app.get("/", (req, res) => {
   res.json({
     status: "API funcionando",
     endpoints: ["/api/tasa"],
-    source: "ExchangeRate-API"
+    source: "Currency-API (cdn.jsdelivr.net)"
   });
 });
 
