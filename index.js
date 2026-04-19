@@ -6,7 +6,7 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Clave secreta - SOLO TU APP LA CONOCE
-const SECRET_KEY = "xk9#mP2$vL8@qR5&wN7!tH3%jK6^yB1*zX4?cF0";
+const SECRET_KEY = process.env.SECRET_KEY;
 app.use(cors());
 
 let cache = {
